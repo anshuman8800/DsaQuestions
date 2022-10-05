@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<vector<int>> twoSumSorted(vector<int>& nums, int st, int end, int n1, int n2, int tar) {
+        long long target = ((long long)tar - n1 ) - (long long)n2;
+        
+        vector<vector<int>> ans;
+        while(st < end) {
+            int sum = nums[st] + nums[end];
+            if(sum == target) {
+                ans.push_back({nums[st], nums[end], n1, n2});
+                int temp1 = nums[st], temp2 = nums[end];
+                while(st < end && nums[st] == temp1) st++;
+                while(st < end && nums[end] == temp2) end--;
+            }
+            else if(sum > target) {
+                end--;
+            }
+            else {
+                st++;
+            }
+        }
+        
+        return ans;
+    }
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        
+        int i = 0, j, temp;
+        while(i < n) {
+            j = i + 1;
+            while(j < n) {
+                vector<vector<int>> v = twoSumSorted(nums, j + 1, n - 1, nums[i], nums[j], target);
+                ans.insert(ans.end(), v.begin(), v.end());
+                
+                temp = nums[j];
+                while(j < n && nums[j] == temp) j++;
+            }
+            
+            temp = nums[i];
+            while(i < n && nums[i] == temp) i++;
+        }
+        
+        return ans;
+    }
+};
