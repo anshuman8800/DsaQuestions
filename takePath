@@ -1,0 +1,24 @@
+/*
+    This is a N^2 solution, in which we are sorting the array at first and 
+    then fixing the value of a & applying 2Sum on sorted array.
+*/
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        
+        int i = 0;
+        while(i < n) {
+            int tar = -nums[i];
+            auto res = twoSumSorted(nums, i + 1, n - 1, -nums[i]);
+            ans.insert(ans.end(), res.begin(), res.end());
+            
+            int temp = nums[i];
+            while(i < n && temp == nums[i]) i++;
+        }
+        
+        return ans;
+    }
+};
