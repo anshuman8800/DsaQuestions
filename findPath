@@ -1,0 +1,22 @@
+/*
+    This is a N^2 solution, in which we are sorting the array at first and 
+    then fixing the value of a & applying 2Sum on sorted array.
+*/
+class Solution {
+public:
+    vector<vector<int>> twoSumSorted(vector<int>& nums, int st, int end, int target) {
+        vector<vector<int>> ans;
+        
+        while(st < end) {
+            int sum = nums[st] + nums[end];
+            if(sum == target) {
+                ans.push_back({nums[st], nums[end], -target});
+                int temp1 = nums[st], temp2 = nums[end];
+                while(st < end && temp2 == nums[end]) end--;
+                while(st < end && temp1 == nums[st]) st++;
+            }
+        }
+        
+        return ans;
+    }
+};
